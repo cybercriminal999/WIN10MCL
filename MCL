@@ -8,7 +8,7 @@ Write-Host " | |  | | |____| |____  | | \ \  __/ (__  | | \ \ |_| | |  __/\__ \ 
 Write-Host " |_|  |_|\_____|______| |_|  \_\___|\___| |_|  \_\__,_|_|\___||___/ " -ForegroundColor Red
 Write-Host ""
 Write-Host "  Made by @Cyberthreats " -ForegroundColor Blue -NoNewline
-Write-Host " - Powershell MCL T1-T3" -ForegroundColor Red
+Write-Host " - PowerShell MCL T1+" -ForegroundColor Red
 Write-Host ""
 
 for ($i = 0; $i -le 10; $i++) {
