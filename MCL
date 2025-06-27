@@ -1,6 +1,6 @@
 $startTime = Get-Date
 
-Write-Host "  __  __  _____ _        _____             _____       _           " -ForegroundColor Red
+Write-Host "  __  __  _____ _ raven  _____    is       _____  gay  _           " -ForegroundColor Red
 Write-Host " |  \/  |/ ____| |      |  __ \           |  __ \     | |          " -ForegroundColor Red
 Write-Host " | \  / | |    | |      | |__) |___  ___  | |__) |   _| | ___  ___ " -ForegroundColor Red
 Write-Host " | |\/| | |    | |      |  _  // _ \/ __| |  _  / | | | |/ _ \/ __|" -ForegroundColor Red
@@ -184,21 +184,16 @@ try {
     $exclusionsOutput += "WARNING: Could not get exclusion paths."
 }
 
+# THREAT CHECK — Active Only
 try {
-    $threats = Get-MpThreat
+    $threats = Get-MpThreat | Where-Object { $_.Status -eq "Active" }
     if ($threats) {
         foreach ($threat in $threats) {
             $line = "$($threat.ThreatName) | Status: $($threat.Status) | ActionSuccess: $($threat.ActionSuccess) | Resources: $($threat.Resources)"
-            if ($threat.Status -eq "Active" -or $threat.ActionSuccess -eq $false -or $threat.Status -eq "Allowed") {
-                $threatsOutput += "FAILURE: $line"
-            } elseif ($threat.Status -eq "Quarantined" -or $threat.Status -eq "Resolved") {
-                $threatsOutput += "SUCCESS: $line"
-            } else {
-                $threatsOutput += "WARNING: Uncertain threat status - $line"
-            }
+            $threatsOutput += "FAILURE: $line"
         }
     } else {
-        $threatsOutput += "SUCCESS: No threats detected."
+        $threatsOutput += "SUCCESS: No active threats detected."
     }
 } catch {
     $threatsOutput += "WARNING: Could not check for threats."
